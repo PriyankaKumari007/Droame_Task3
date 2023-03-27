@@ -1,0 +1,24 @@
+
+
+To solve the problem of multiple drones flying in a 2-D space autonomously, we can use the A* search algorithm, which is a widely used pathfinding algorithm. 
+The A* algorithm works by finding the shortest path between a start node and an end node in a graph. 
+In our case, each drone can be considered as a node, and the edges between them represent the path that the drone can take to reach its destination.
+
+Algorithm:
+Step 1)  The first step in the algorithm would be to create a graph representation of the problem. 
+         We can create a 2-D grid of size 20x20, where each cell represents a point in the space. 
+         We can then add all the drones as nodes in the graph, with their starting positions as the initial state of the node and their end positions as the goal state of the node.
+
+Step 2) Once the graph is created, we can apply the A* algorithm to each drone node to find the shortest path to its destination. 
+        The heuristic function used by the algorithm can be the Euclidean distance between the current position of the drone and its destination. 
+        We can also consider the time factor by adding the time taken by the drone to reach its destination as an additional cost factor in the heuristic function.
+
+Step 3)To ensure that there are no collisions between the drones, we can use a simple collision detection mechanism. 
+       Before moving a drone to a new position, we can check if there is any other drone already present at that position. 
+       If yes, we can wait for a certain time and try again later.
+
+In addition to the A* algorithm, we can also use other optimization techniques like genetic algorithms or simulated annealing to further optimize the pathfinding algorithm.
+
+Overall, the algorithm we have described above should be able to solve the problem of multiple drones flying in a 2-D space autonomously while avoiding collisions and minimizing the time taken to reach the destination.
+
+
