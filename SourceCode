@@ -1,0 +1,106 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+
+const int GRID_SIZE = 20;
+const int DIRECTION = 8;
+const int dx[DIRECTION] = { -1, -1, 0, 1, 1, 1, 0, -1 };
+const int dy[DIRECTION] = { 0, 1, 1, 1, 0, -1, -1, -1 };
+
+struct Drone {
+    int x1, y1, x2, y2, t;
+};
+
+struct Node {
+    int x, y, f, g, h;
+    Node* parent;
+    Node(int x_, int y_) : x(x_), y(y_), f(0), g(0), h(0), parent(nullptr) {}
+};
+
+struct CompareNode {
+    bool operator()(const Node* n1, const Node* n2) const {
+        return n1->f > n2->f;
+    }
+};
+
+class Grid {
+public:
+    Grid(int size_) : size(size_) {
+        data.resize(size_, vector<int>(size_));
+    }
+
+    bool is_valid(int x, int y) const {
+        return x >= 0 && x < size && y >= 0 && y < size && data[x][y] == 0;
+    }
+
+    void set_obstacle(int x, int y) {
+        data[x][y] = 1;
+    }
+
+    void reset() {
+        data.assign(size, vector<int>(size));
+    }
+
+private:
+    int size;
+    vector<vector<int>> data;
+};
+
+class AStar {
+public:
+    AStar(Grid& grid_, int sx_, int sy_, int tx_, int ty_) :
+        grid(grid_), sx(sx_), sy(sy_), tx(tx_), ty(ty_) {}
+
+    bool search(vector<pair<int, int>>& path) {
+        priority_queue<Node*, vector<Node*>, CompareNode> open_list;
+        vector<vector<bool>> closed_list(grid.size, vector<bool>(grid.size, false));
+        Node* start = new Node(sx, sy);
+        start->g = 0;
+        start->h = heuristic(start);
+        start->f = start->g + start->h;
+        open_list.push(start);
+
+        while (!open_list.empty()) {
+            Node* curr = open_list.top();
+            open_list.pop();
+            closed_list[curr->x][curr->y] = true;
+
+            if (curr->x == tx && curr->y == ty) {
+                path.clear();
+                while (curr) {
+                    path.emplace_back(curr->x, curr->y);
+                    curr = curr->parent;
+                }
+                reverse(path.begin(), path.end());
+                return true;
+            }
+
+            for (int i = 0; i < DIRECTION; i++) {
+                int nx = curr->x + dx[i];
+                int ny = curr->y + dy[i];
+                if (!grid.is_valid(nx, ny) || closed_list[nx][ny]) continue;
+                Node* neighbor = new Node(nx, ny);
+                neighbor->g = curr->g + 1;
+                neighbor->h = heuristic(neighbor);
+                neighbor->f = neighbor->g + neighbor->h;
+                neighbor->parent = curr;
+                open_list.push(neighbor);
+            }
+        }
+        return false;
+    }
+
+private:
+    Grid& grid;
+    int sx, sy, tx, ty;
+
+    int heuristic(Node* node) const {
+        int dx = abs(node->x - tx);
+        int dy = abs(node->y - ty);
+        return
+
+
+
