@@ -1,0 +1,7 @@
+EXPLANATION OF PROBLEM STATEMENT IN BRIEF
+
+In this problem, we are given a 2D plane represented as an M x N grid. 
+We need to design an algorithm that guides multiple drones flying autonomously to their respective destinations without any collisions. 
+The input to the algorithm includes the number of drones and their starting and ending positions along with the time at which they will start.
+
+
