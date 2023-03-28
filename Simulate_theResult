@@ -1,0 +1,38 @@
+
+To simulate the result, you can create multiple Drone objects and assign them each a start and end point. 
+Then, you can run the A* algorithm for each drone to find the optimal path from start to end, and display the paths of all the drones on a grid or map.
+
+Here is an example code snippet that demonstrates this:
+
+
+
+
+int main() {
+    // create a 20x20 grid and set some obstacles
+    Grid grid(GRID_SIZE);
+    grid.set_obstacle(5, 5);
+    grid.set_obstacle(6, 5);
+    grid.set_obstacle(7, 5);
+    grid.set_obstacle(8, 5);
+    grid.set_obstacle(9, 5);
+
+    // run A* algorithm to find a path from (0, 0) to (19, 19)
+    AStar astar(grid, 0, 0, 19, 19);
+    vector<pair<int, int>> path;
+    bool found = astar.search(path);
+
+    // print the path if found
+    if (found) {
+        for (auto& p : path) {
+            cout << "(" << p.first << ", " << p.second << ") ";
+        }
+        cout << endl;
+    } else {
+        cout << "No path found." << endl;
+    }
+
+    return 0;
+      }
+
+
+        
