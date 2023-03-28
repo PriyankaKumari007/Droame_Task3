@@ -44,7 +44,7 @@ public:
         data.assign(size, vector<int>(size));
     }
 
-private:
+public:
     int size;
     vector<vector<int>> data;
 };
@@ -100,7 +100,7 @@ private:
     int heuristic(Node* node) const {
         int dx = abs(node->x - tx);
         int dy = abs(node->y - ty);
-        return
-
-
-
+        return 0;
+    }
+};
+        
